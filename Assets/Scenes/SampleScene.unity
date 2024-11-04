@@ -648,6 +648,7 @@ MonoBehaviour:
   speed: 5
   leftBoundary: -1.7
   rightBoundary: 1.7
+  scoreManager: {fileID: 240415519}
 --- !u!212 &922006806
 SpriteRenderer:
   m_ObjectHideFlags: 0
