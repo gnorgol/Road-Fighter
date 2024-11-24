@@ -20,17 +20,20 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
-        // Augmenter le score au fil du temps
-        score += Time.deltaTime * 10;  // Multipliez par 10 pour accélérer l'incrémentation
-        UpdateScoreText();
-        UpdateSpeedText();
-
-        // Mettre à jour le high score si nécessaire
-        if (score > highScore)
+        if (GameManager.Instance.isGameStarted)
         {
-            highScore = score;
-            UpdateHighScoreText();
-            PlayerPrefs.SetFloat("HighScore", highScore);
+            // Augmenter le score au fil du temps
+            score += Time.deltaTime * 10;  // Multipliez par 10 pour accélérer l'incrémentation
+            UpdateScoreText();
+            UpdateSpeedText();
+
+            // Mettre à jour le high score si nécessaire
+            if (score > highScore)
+            {
+                highScore = score;
+                UpdateHighScoreText();
+                PlayerPrefs.SetFloat("HighScore", highScore);
+            }
         }
     }
 

@@ -6,12 +6,15 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        float gameSpeed = GameManager.Instance.gameSpeed;
-        // Increase speed based on game speed in km/h
-        transform.Translate(Vector3.down * speed * gameSpeed * Time.deltaTime);
-        if (transform.position.y < -5f)
+        if (GameManager.Instance.isGameStarted)
         {
-            Destroy(gameObject);
+            float gameSpeed = GameManager.Instance.gameSpeed;
+            // Increase speed based on game speed in km/h
+            transform.Translate(Vector3.down * speed * gameSpeed * Time.deltaTime);
+            if (transform.position.y < -5f)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

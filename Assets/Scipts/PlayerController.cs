@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,13 +10,23 @@ public class PlayerController : MonoBehaviour
     public float leftBoundary = -2.5f;
     public float rightBoundary = 2.5f;
     public ScoreManager scoreManager;
+    public InputActionReference MoveAction;
+    private void OnEnable()
+    {
+        MoveAction.action.Enable();
+    }
 
+    private void OnDisable()
+    {
+        MoveAction.action.Disable();
+    }
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
+        Vector2 inputVector = MoveAction.action.ReadValue<Vector2>();
+        Debug.Log(inputVector);
 
         Vector3 position = transform.position;
-        position.x += horizontal * speed * Time.deltaTime;
+        position.x += inputVector.x * speed * Time.deltaTime;
 
         // Limiter la position du joueur à la route
         position.x = Mathf.Clamp(position.x, leftBoundary, rightBoundary);
@@ -30,8 +41,7 @@ public class PlayerController : MonoBehaviour
         {
             // Réinitialiser le score
             scoreManager.ResetScore();
-
-            // Optionnel : recharger la scène pour redémarrer le jeu
+            // Recharger la scène
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
